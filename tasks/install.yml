@@ -1,0 +1,36 @@
+---
+- name: uptime_kuma | add_user | Ensure kuma group exists
+  group:
+    name: "{{ kuma__group }}"
+    state: present
+
+- name: uptime_kuma | add_user | Add kuma user
+  user:
+    name: "{{ kuma__user }}"
+    group: "{{ kuma__group }}"
+    state: present
+    create_home: yes
+    shell: /bin/bash
+  become: yes
+
+- name: kuma | Clone kuma repo
+  git:
+    repo: "{{ kuma__repo }}"
+    dest: "{{ kuma__path }}"
+    owner: "{{ kuma__user }}"
+    group: "{{ kuma__group }}"
+  become: yes
+
+- name: kuma | Install package dependencies
+  npm:
+    path: "{{ kuma__path }}"
+    state: present
+  become_user: "{{ kuma__user }}"
+
+- name: kuma | Install pm2
+  npm:
+    name: pm2
+    state: present
+    path: "{{ kuma__path }}"
+  become: yes
+  become_user: "{{ kuma__user }}"
