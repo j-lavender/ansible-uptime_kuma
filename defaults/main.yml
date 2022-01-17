@@ -1,0 +1,9 @@
+---
+kuma__user: kuma
+kuma__group: "{{ kuma__user }}"
+kuma__repo: "https://github.com/louislam/uptime-kuma.git"
+kuma__path: "/home/{{ kuma__user }}/uptime-kuma/"
+
+# Kuma requires node and npm. If nodejs is not installed, this flag can be used for quick installation of Node v14.
+kuma__install_nodejs: true
+nodejs__version: '14.x'
