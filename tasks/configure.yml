@@ -1,27 +1,27 @@
 ---
 - block:
-  - name: kuma | Setup kuma
+  - name: uptime_kuma | configure | Setup kuma
     command: npm run setup
     args:
       chdir: "{{ kuma__path }}"
 
-  - name: kuma | Clear all pm2 apps
+  - name: uptime_kuma | configure | Clear all pm2 apps
     command: pm2 delete all
     args:
       chdir: "{{ kuma__path }}"
 
-  - name: kuma | Create systemd startup script
+  - name: uptime_kuma | configure | Create systemd startup script
     command: env PATH=$PATH:/usr/bin /usr/lib/node_modules/pm2/bin/pm2 startup systemd -u {{ kuma__user }} --hp /home/{{ kuma__user }}
     args:
       chdir: "{{ kuma__path }}"
     become: yes
 
-  - name: kuma | Start kuma
+  - name: uptime_kuma | configure | Start kuma
     command: pm2 start server/server.js --name kuma
     args:
       chdir: "{{ kuma__path }}"
 
-  - name: kuma | Ensure pm2 startup configuration is enabled for reboots.
+  - name: uptime_kuma | configure | Ensure pm2 startup configuration is enabled for reboots.
     command: pm2 save
     args:
       chdir: "{{ kuma__path }}"

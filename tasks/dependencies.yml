@@ -10,27 +10,27 @@
   become: yes
 
 - block:
-  - name: uptime_kuma | nodejs | add NodeSource apt key
+  - name: uptime_kuma | dependencies | nodejs | add NodeSource apt key
     apt_key:
       url: "https://deb.nodesource.com/gpgkey/nodesource.gpg.key"
       state: present
     become: yes
 
-  - name: uptime_kuma | nodejs | Add NodeSource repository
+  - name: uptime_kuma | dependencies | nodejs | Add NodeSource repository
     apt_repository:
       repo: deb https://deb.nodesource.com/node_{{ nodejs__version }} {{ ansible_distribution_release }} main
       state: present
       filename: 'nodesource'
     become: yes
 
-  - name: uptime_kuma | nodejs | Add NodeSource src repository
+  - name: uptime_kuma | dependencies | nodejs | Add NodeSource src repository
     apt_repository:
       repo: deb-src https://deb.nodesource.com/node_{{ nodejs__version }} {{ ansible_distribution_release }} main
       state: present
       filename: 'nodesource'
     become: yes
 
-  - name: uptime_kuma | nodejs | Install NodeJS
+  - name: uptime_kuma | dependencies | nodejs | Install NodeJS
     apt:
       name: nodejs
       state: latest
