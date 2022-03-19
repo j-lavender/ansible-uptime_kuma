@@ -25,6 +25,7 @@
   npm:
     path: "{{ kuma__path }}"
     state: present
+  become: yes
   become_user: "{{ kuma__user }}"
 
 - name: uptime_kuma | install | Install pm2
