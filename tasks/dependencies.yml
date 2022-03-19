@@ -36,4 +36,4 @@
       state: latest
       update-cache: yes
     become: yes
-  when: kuma__install_nodejs == true
+  when: kuma__install_nodejs | bool
